@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 fittness_evaluation_counts = 0
 
@@ -95,10 +96,18 @@ plt.plot(all_fittness.max(axis=1), 'bo--', label='max fitness')
 plt.legend()
 
 plt.subplot(1, 2, 2)
-for i in range(9):
-    plt.vlines(i, 0, 8)
-    plt.hlines(i, 0, 8)
+
+plt.vlines(0, 0, 8)
+plt.hlines(0, 0, 8)
+plt.vlines(8, 0, 8)
+plt.hlines(8, 0, 8)
+
 for i in range(8):
-    plt.plot(i + 0.5, best_solution[i] + 0.5, 'kx', markersize=8)
+    for j in range(i % 2, 8, 2):
+        rect = patches.Rectangle((i, j), 1, 1, linewidth=1, facecolor='g')
+        plt.gca().add_patch(rect)
+
+for i in range(8):
+    plt.plot(i + 0.5, best_solution[i] + 0.5, 'kx', markersize=10)
 
 plt.show()
